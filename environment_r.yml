@@ -1,0 +1,19 @@
+name: de_analysis
+channels:
+  - bioconda
+  - conda-forge
+  - defaults
+dependencies:
+  - bioconductor-org.hs.eg.db
+  - bioconductor-gage
+  - bioconductor-fgsea
+  - bioconductor-gsva
+  - bioconductor-edger
+  - bioconductor-simplifyenrichment
+  - r-msigdbr
+  - bioconductor-rrvgo
+  - r-plotly
+  - r-htmltools
+  - pandoc
+  - bioconductor-gosim
+prefix: /home/johanna.enright/miniconda3/envs/de_analysis

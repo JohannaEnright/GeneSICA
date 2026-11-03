@@ -1,0 +1,26 @@
+name: wheat_rnaseq
+channels:
+  - bioconda
+  - conda-forge
+  - defaults
+dependencies:
+  - star
+  - subread
+  - samtools
+  - sra-tools
+  - fastp
+  - fastqc
+  - multiqc
+  - pysradb
+  - pandas
+  - pip
+  - pigz
+  - wget
+  - harfbuzz
+  - libpng
+  - freetype
+  - libtiff
+  - fribidi
+  - r-base
+  - r-webgestaltr
+prefix: /home/johanna.enright/miniconda3/envs/wheat_rnaseq

@@ -1,0 +1,16 @@
+name: weight_ora
+channels:
+  - bioconda
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.12
+  - numpy
+  - matplotlib
+  - pandas
+  - time
+  - seaborn
+  - python-kaleido
+  - plotly
+  - titlecase
+prefix: /home/johanna.enright/miniconda3/envs/weight_ora
