@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-THREADS=16
 
 OUTDIR=$1    #"/scratch/42909494/gse118126_out"  #directory that fasta and meta downloads are in
 METADIR="${OUTDIR}/meta"
@@ -10,6 +9,8 @@ ALIGNDIR="${OUTDIR}/align"   # new output directory on scratch for alignment "/s
 LOGDIR="log/"
 
 STAR_INDEX=$2    #"/scratch/42930340/star_index/100/"  #this is where the star index folder is located (containing 'Genome' file)
+
+THREADS=$3
 
 STAR=STAR
 SAMTOOLS=samtools

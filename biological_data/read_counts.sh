@@ -2,15 +2,15 @@
 set -euo pipefail
 
 ################# GLOBAL VARIABLES ####################################
-THREADS=16
 
 OUTDIR=$1
 BAMDIR="${2}/align"
 COUNTSDIR="${OUTDIR}/counts"
-GTFFILE="ref/ncbi_dataset/data/GCF_000001405.40/genomic.gtf"
 FEATURECOUNTS=featureCounts
 FRAC_COUNTS=$3  #'TRUE' or 'FALSE'
 STRANDEDNESS=$4   #can be 0, 1, or 2 (unstranded, forward, reverse)
+GTFFILE=$5 #"ref/ncbi_dataset/data/GCF_000001405.40/genomic.gtf"
+THREADS=$6
 ######################################################################
 
 

@@ -1,13 +1,14 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-THREADS=16
 
-FASTA="ref/ncbi_dataset/data/GCF_000001405.40/GCF_000001405.40_GRCh38.p14_genomic.fna"
-GTF="ref/ncbi_dataset/data/GCF_000001405.40/genomic.gtf" 
+FASTA=$1  #"ref/ncbi_dataset/data/GCF_000001405.40/GCF_000001405.40_GRCh38.p14_genomic.fna"
+GTF=$2    #"ref/ncbi_dataset/data/GCF_000001405.40/genomic.gtf" 
 
-SJDB_OVERHANG=$1    #read length -1  #exp. 149 or 100
-SCRATCH=$2         #scratch # that files will be outputed to
+SJDB_OVERHANG=$3    #read length -1  #exp. 149 or 100
+SCRATCH=$4         #scratch # that files will be outputed to
+
+THREADS=$5
 
 STAR_INDEX="${SCRATCH}/star_index/${SJDB_OVERHANG}/"    #/scratch/slurmjobid/startIndex/overhang
 echo ${STAR_INDEX}
