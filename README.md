@@ -105,13 +105,67 @@ This information is recommended to have for step 5.
 | ($2) BAM_DIR | Directory containing the .bam files (minus /align/) | | required |
 | ($3) FRAC_COUNTS | Whether you want reads mapping to multiple locations to be counted as a fractional amount. (If not these counts will be discarded) | 'TRUE' or 'FALSE' | required |
 | ($4) STRANDEDNESS | The strandedness of the RNAseq fastq data | unstranded=0, forward=1, reverse=2 | required |
-| ($5) THREADS | Number of threads to run script on | | required |
+| ($5) GTFFILE | GTF file for reference genome | | required |
+| ($6) THREADS | Number of threads to run script on | | required |
 
 **Example**
 ```bash
-read_counts.sh "GSE282218/counts" "out_dir" FALSE 2 16
+read_counts.sh "GSE282218/counts" "out_dir" FALSE 2 "ref/ncbi_dataset/data/GCF_000001405.40/genomic.gtf" 16
 ```
 Output will be a read_counts.txt and a read_counts.txt.summary file.
+
+For the final script in the biological processing, you will need to switch environments
+```bash
+conda deactivate
+conda activate environment_r
+```
+
+6. Run `create_colmap_gse282218.r`
+This is the one script that gets custom made for each new dataset. This one is hard coded specifically to process the GSE282218 data. \
+If making one of your own create_colmap scripts, it must have a few key elements for the data frame formatting output.
+- The number of rows must equal the number of columns in `read_counts.txt`
+- The first column must be named "accession" and the names in the column must match perfectly the headers of `read_counts.txt`
+- all coefficients one wishes to examine/compare must be under a column named coef_# (exp. coef1)
+- The reference category one wishes to compare their coefficients to must be under the column ref_coef# (exp. ref_coef1)
+- their must be a 'replicate' column numbering the replicates for each coefficient subtype.
+- any other columns for ones own meta data management are fine to be present so long as they do not have one of the aforementioned column names.
+- the table must be tab separated
+
+**Example**
+```bash
+./create_colmap_gse282218.r --count_dir "GSE282218/counts" --meta_dir "GSE282218/meta" --out_dir "GSE282218/meta"
+```
+Output will be a `colData.tsv` file.
+
+8. Run `differential_expression_analysis.R`
+This script uses DeSEQ2 to run the differential expression analysis of the read count profile.
+(DEGs = Differentially Expressed Genes)
+
+| Argument | Description | Options | Default |
+|---|---|---|---|
+| --count_file | read count profile (`read_counts.txt`) | | required |
+| --out_dir | output directory for DEG files | | "./out" |
+| --nskip | Number of commented lines to skip before getting to the column header line. (Should run on default) | | 1 |
+| --alpha | Significance cutoff for DEGs. P-values and False Discovery Rate | | 0.05 |
+| --col_map | File containing meta data about column headers + samples | | required |
+
+```bash
+./differential_expression_analysis.R --count_file "GSE282218/counts/read_counts.txt" --out_dir "GSE282218/counts/de_out" --col_map "GSE282218/meta/colData.tsv"
+```
+Output files will include: \
+- A gene of interest file (used for ORA and GeneSICA) --> `ORA_coef1_vs_control_genes_of_interest.txt`
+- An ORA gene reference set (used for ORA) --> `ORA_reference_genes.txt`
+- A GSEA rank file --> `GSEA_coef1_vs_Control_genes_of_interest.rnk`
+- A text file containing extra haplotypes which were removed --> `removed_alt_haps_assmbl.txt`
+- An extra data folder containing the full results (including insignificant) and meta data about parameters used. -->  `extra_data/full_results_coef1_vs_Control.txt` and `extra_data/result_params_coef1_vs_Control.txt` 
+
+### Silver Simulated Dataset Setup
+
+
+### GeneSICA Method
+
+
+### Alternative Gene Set Analysis Methods
 
 
 ## Authors
