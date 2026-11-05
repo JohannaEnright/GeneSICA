@@ -100,7 +100,7 @@ This information is recommended to have for step 5.
 5. Run `read_counts.sh`
 
 | Argument | Description | Options | Default |
-|---|---|---|
+|---|---|---|---|
 | ($1) OUTDIR | Directory you want read counts to be outputted to | | required |
 | ($2) BAM_DIR | Directory containing the .bam files (minus /align/) | | required |
 | ($3) FRAC_COUNTS | Whether you want reads mapping to multiple locations to be counted as a fractional amount. (If not these counts will be discarded) | 'TRUE' or 'FALSE' | required |
