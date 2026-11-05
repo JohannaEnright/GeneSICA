@@ -8,7 +8,7 @@ OUTDIR=$3
 METADIR="${OUTDIR}/meta"
 FASTQDIR="${OUTDIR}/fastq"
 
-THREADS=16
+THREADS=$4
 
 PYTHON=python3
 PREFETCH=prefetch
