@@ -76,12 +76,46 @@ bash star_build_index.sh "ref/ncbi_dataset/data/GCF_000001405.40/GCF_000001405.4
 ```
 The output will be directed to `out_dir/star_index/${SJDB_OVERHANG}/`
 
-4.
+4. run `star_align_human.sh`
+This script maps the cleaned fastq reads to their genomic locations using the index built in step 3.
 
+| Argument | Description | Default |
+|---|---|---|
+| ($1) OUTDIR | Directory that cleaned fastq and meta files are in | required |
+| ($2) STAR_INDEX | File path that the genomic index file is located in | required |
+| ($3) THREADS | Number of threads to run script on | required |
 
+**Example**
+```bash
+star_align_human.sh "out_dir" "out_dir/star_index/92" 16
+```
+Outputs .bam and .csi files to `out_dir/align`
+
+4.5 *Optional: Run `check_strand.sh`*
+This script uses the python package how_are_we_stranded_here^1 to determine the strandedness of RNAseq fastq data.
+If the strandedness of your data is unknown, follow instructions for download and use here: [how_are_we_stranded_here](https://github.com/signalbash/how_are_we_stranded_here).
+
+This information is recommended to have for step 5.
+
+5. Run `read_counts.sh`
+
+| Argument | Description | Options | Default |
+|---|---|---|
+| ($1) OUTDIR | Directory you want read counts to be outputted to | | required |
+| ($2) BAM_DIR | Directory containing the .bam files (minus /align/) | | required |
+| ($3) FRAC_COUNTS | Whether you want reads mapping to multiple locations to be counted as a fractional amount. (If not these counts will be discarded) | 'TRUE' or 'FALSE' | required |
+| ($4) STRANDEDNESS | The strandedness of the RNAseq fastq data | unstranded=0, forward=1, reverse=2 | required |
+| ($5) THREADS | Number of threads to run script on | | required |
+
+**Example**
+```bash
+read_counts.sh "GSE282218/counts" "out_dir" FALSE 2 16
+```
+Output will be a read_counts.txt and a read_counts.txt.summary file.
 
 
 ## Authors
 Johanna Enright, Katie Ovens, Farhad Maleki.
 
-
+## Citations
+1. Signal, B., & Kahlke, T. (2022). how_are_we_stranded_here: quick determination of RNA-Seq strandedness. BMC bioinformatics, 23(1), 49. https://doi.org/10.1186/s12859-022-04572-7
