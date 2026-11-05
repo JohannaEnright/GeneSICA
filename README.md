@@ -7,10 +7,10 @@ GeneSICA aims to identify biologically relevant enrichment in smaller gene sets 
 This is because large gene sets containing genes shared across many biological processes may provide limited insight into the specific processes underlying phenotypic differences in case-control studies. Other methods such as Over-representation analysis make simplifying assumptions, including that all genes are equally important when performing gene set analysis, which we hope to address with this method.
 
 ## Installation
-There are three different conda environments used in the various processing stages of this project. 
-i) environment_bio_processing.yml is used when downloading RNA-seq data, cleaning fasta files, running genome alignments, and performing read counts.
-ii) environment_r.yml is used when running any file ending in .r
-iii) environment_python.yml is used when running any file ending in .py
+There are three different conda environments used in the various processing stages of this project. \
+    * i) environment_bio_processing.yml is used when downloading RNA-seq data, cleaning fasta files, running genome alignments, and performing read counts. \
+    * ii) environment_r.yml is used when running any file ending in .r 
+    * iii) environment_python.yml is used when running any file ending in .py 
 
 
 ```bash
