@@ -227,6 +227,30 @@ cd genesica
 ```
 
 ### Alternative Gene Set Analysis Methods
+This section explains how to run alternative gene set enrichment methods: ORA and GSEA.
+
+First, activate the R environment
+```bash
+conda deactivate
+conda activate environment_r
+```
+
+1. Run `webgestalt.R`
+| Argument | Description | Options | Default |
+|---|---|---|---|
+| --method | The gene set enrichment method |'ORA' or 'GSEA'| 'ORA' |
+| --goi_file | Text file containing genes of interest that are differentially expressed | | required |
+| --goi_type | The ID format that the proteins in the goi_file are in | | ensembl_gene_id |
+| --db_file | A gmt file containing gene set database info |  | required |
+| --enrich_db_type | Number of bootstrap iterations | Integer > 0 | 1000 |
+| --reference_file | Maximum size of gene set to be considered | An integer | 500 |
+| --reference_type | Minimum size of gene set to be considered | An integer | 5 |
+| --out_dir | File containing meta data about column headers + samples |  | "out/pvalues" |
+| --project_name | Number of permutated SIC values to start GPD goodness of fit test | An Integer | 500 |
+| --maxNum| Exponent used to transform the GPD. To get a heavier tailed GPD and more reliable results, ideally you want a shape parameter < 0.  | Int > 0 | 1 |
+| --minNum | Exponent used to transform the GPD. To get a heavier tailed GPD and more reliable results, ideally you want a shape parameter < 0.  | Int > 0 | 1 |
+| --perNum | Exponent used to transform the GPD. To get a heavier tailed GPD and more reliable results, ideally you want a shape parameter < 0.  | Int > 0 | 1 |
+
 
 
 ## Authors
