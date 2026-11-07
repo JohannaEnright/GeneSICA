@@ -163,7 +163,68 @@ Output files will include: \
 
 
 ### GeneSICA Method
+This section will describe how to run the GeneSICA method on the prepared biological and Silver datasets.
 
+First, activate the python environment.
+```bash
+conda deactivate
+conda activate environment_python
+```
+
+A) To run the GeneSICA + SIC Ordering method, run `boostrap_SIC_parallel.py`.
+
+| Argument | Description | Options | Default |
+|---|---|---|---|
+| --goi_file | Text file containing genes of interest that are differentially expressed | | required |
+| --gmt | GMT file, gene set database | | required |
+| -m | Size of resample DEG list, L' | An integer | 55 |
+| -n | Number of bootstrap iterations | An integer | 1000 |
+| --minsize | Minimum size of gene set to be considered | An integer | 5 |
+| --maxsize | Maximum size of gene set to be considered | An integer | 500 |
+| --out_dir | File containing meta data about column headers + samples |  | "out/pvalues" |
+
+**Example**
+```bash
+cd genesica
+./bootstrap_SIC_parallel.py \
+   --goi_file "../biological_data/GSE282218/counts/de_out/ORA_coef1_vs_control_genes_of_interest.txt" \
+   --gmt "../ref/gmt/c5.go.v2026.1.Hs.symbols.gmt" \
+   -m 55 \
+   -n 100000 \
+   --n_jobs 40 \
+   --minsize 5 \
+   --maxsize 500 \
+   --out_dir "results"
+```
+
+B) To run the GeneSICA + GPD method, run `boostrap_SIC_feed_gpd.py`.
+
+| Argument | Description | Options | Default |
+|---|---|---|---|
+| --goi_file | Text file containing genes of interest that are differentially expressed | | required |
+| --gmt | GMT file, gene set database | | required |
+| -m | Size of resample DEG list, L' | Integer > 0 | 55 |
+| -n | Number of bootstrap iterations | Integer > 0 | 1000 |
+| --minsize | Minimum size of gene set to be considered | An integer | 5 |
+| --maxsize | Maximum size of gene set to be considered | An integer | 500 |
+| --out_dir | File containing meta data about column headers + samples |  | "out/pvalues" |
+| --max_tail | Number of permutated SIC values to start GPD goodness of fit test | An Integer | 500 |
+| --transformation_exp | Exponent used to transform the GPD. To get a heavier tailed GPD and more reliable results, ideally you want a shape parameter < 0.  | Int > 0 | 1 |
+
+**Example**
+```bash
+cd genesica
+./bootstrap_SIC_parallel.py \
+   --goi_file "../biological_data/GSE282218/counts/de_out/ORA_coef1_vs_control_genes_of_interest.txt" \
+   --gmt "../ref/gmt/c5.go.v2026.1.Hs.symbols.gmt" \
+   -m 55 \
+   -n 100000 \
+   --n_jobs 40 \
+   --minsize 5 \
+   --maxsize 500 \
+   --out_dir "results" \
+   --transformation_exp 1
+```
 
 ### Alternative Gene Set Analysis Methods
 
