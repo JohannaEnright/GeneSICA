@@ -21,22 +21,18 @@ parser$add_argument("--method",
                     choices = c("ORA", "GSEA"),
                     help = "Enrichment method [default: ORA]"
                     )
-parser$add_argument("--organism",
-                    default = "hsapiens",
-                    help = "Organism [default: hsapiens], options['hsapiens', 'taestivum']"
-                    )
 parser$add_argument("--out_dir",
                     default = "webgestalt_out",
                     help = "Path for output directory"
                     )
 parser$add_argument("--goi_file",
-                    default = "../../geo_data/exp2/ORA_GDS2490_genes_of_interest.txt",
+                    default = "",
                     help = "File containing genes of interest.
                     If --method='ORA', file should be one column of genes and .txt
                     If --method='GSEA', file should be 2 columns of genes(ranked) \\t foldchange and .rnk"
                     )
 parser$add_argument("--db_file",
-                    default = "../../gmt_data/genesets_symbols_deepseek-r1:8b.gmt",
+                    default = "",
                     help = "A GMT file containing gene set database info."
                     )
 parser$add_argument("--enrich_db_type",
@@ -52,7 +48,7 @@ parser$add_argument("--reference_type",
                     help = "The ID format that the proteins for the ORA reference file are in. "
                     )
 parser$add_argument("--reference_file",
-                    default = "../../geo_data/exp2/ORA_GDS2490_reference_genes.txt",
+                    default = "",
                     help = "A .txt file containing a list of genes in 1 column.
                     Only required for the 'ORA' method."
                     )
@@ -86,7 +82,6 @@ parser$add_argument("--perNum",
 args = parser$parse_args()
 
 enrich_method = args$method
-organism = args$organism
 out_dir = args$out_dir
 goi_file = args$goi_file
 enrich_db_file = args$db_file
@@ -107,9 +102,6 @@ if (!enrich_method %in% c("ORA", "GSEA")){
   stop(glue("enrich_method must be either 'ORA', 'GSEA'"))
 }
 
-if (!organism %in% c("hsapiens", "taestivum")){
-  stop(glue("Organism must be 'hsapiens' or 'taestivum', not {organism}"))
-}
 
 ### Check the file paths are valid ##
 if (!file.exists(enrich_db_file)){
@@ -130,10 +122,7 @@ if (enrich_method == "ORA"){
 }
 
 
-if (organism %in% c("taestivum", "hsapiens")){
-  cat("Webgestalt does not support organism: ", organism, ".    Converting to 'others'\n")
-  organism = "others"   #taestivum not supported in WebGestalt
-}
+organism = "others" 
 
 goi_lab = regmatches(basename(goi_file), regexpr("(?<=[GSEA|ORA]_).+(?=_genes_of_interest)", basename(goi_file), perl = TRUE))
 print(glue("Performing {enrich_method} analysis for {goi_lab}"))

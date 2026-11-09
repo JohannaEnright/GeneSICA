@@ -27,7 +27,7 @@ parser$add_argument("--count_file",
                     help = "File countaining SILVER simulated expression counts."  
 )
 parser$add_argument("--out_dir",
-                    default = "",
+                    default = "de_out",
                     type = "character",
                     help = "Output Directory for Files"
 )

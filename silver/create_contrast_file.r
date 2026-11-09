@@ -42,19 +42,12 @@ parser$add_argument("--col_map",              ## I don't actually do anything wi
                     type = "character",
                     help = "This is the colData.tsv file. It contains meta data about the raw count file. (generated from a create_col_data script)"
 )
-# parser$add_argument("--meta_file",              ## I don't actually do anything with this variable yet.
-#                     default = "", 
-#                     type = "character",
-#                     help = "This is the metadata.tsv file. It contains meta data about the SRR downloads. It is downloaded with the GEO expression dataset download scripts."
-# )
 parser$add_argument("--contrast_vars",
-                       #default = c("", ""),
                        nargs = 2,
                        type = "character",
                        help = "The 2 variables (relevant to the specific samples/dataset) which you want to be contrasted.  Can be 2 subcategories in 'coef1' for example. ('KIF20AOE' vs 'CTRL')."
 )
 parser$add_argument("--control_case",
-                       #default = c("", ""),
                        nargs = 2,
                        type = "character",
                        help = "Indicate which of the contrast_vars is a control, and which is the case by indicating 'c' for control and 'd' for case. (Order must correspond with contrast_var order)"

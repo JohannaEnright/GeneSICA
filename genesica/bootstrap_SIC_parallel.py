@@ -221,8 +221,8 @@ def main():
     parser.add_argument(
         "-m",
         type=int,
-        default=20, 
-        help="An integer Number. Cardinality (Length) of Desired Gene Set."
+        default=55, 
+        help="An integer Number. Cardinality (Length) of DEG list (L')."
         )
     parser.add_argument(
         "-n",
