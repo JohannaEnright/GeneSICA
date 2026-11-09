@@ -163,18 +163,139 @@ Output files will include: \
 This section describes how to create simulated gene expression profiles from Silver.
 First you need a txt file of the gene sets you want to be differentially expressed, formatted like `mixedsize_mixedoverlap_halfup_1_3.txt`.
 
-1. Run `create_contrast_file.r`
-------------
+```bash
+cd ../silver
+```
 
-3. Run`create_de_fold_change_for_silver_v2.py`. This will create the file with differentially expressed genes from the specified gene sets required for input to silver.
+1. Run `create_contrast_file.r`
+| Argument | Description | Options | Default |
+|---|---|---|---|
+| --count_file | read count profile (`read_counts.txt`) | | required |
+| --col_map | This is the `colData.tsv` file. It contains meta data about the `read_counts.txt` file| | required |
+| --out_dir | output directory for DEG files | | "./" |
+| --nskip | Number of commented lines to skip before getting to the column header line in `read_counts.txt`. (Should run on default) | | 1 |
+| --col_map | This is the `colData.tsv` file. It contains meta data about the `read_counts.txt` file| | required |
+| --filename_add | This is the for if you want to add any text to the filename (like GEO accession)| | "" |
+| --contrast_vars | The 2 variables that are used as a case-control comparison (names must match those in `colData.tsv` column coef#.) Exp. TUMOUR WILDTYPE | 2 strings separated by whitespace | required |
+| --control_case | Indicate which of the contrast_vars is a case and which is a control. 'd' for case, 'c' for control. Order must correspond with contrast_var order | Exp. 'd' 'c'  | 2 strings separated by whitespace | required |
+
+**Example**
+```bash
+./create_contrast_file.r \
+   --count_file "../biological_data/GSE282218/counts/read_counts.txt" \
+   --col_map "../biological_data/GSE282218/meta/colData.tsv" \
+   --out_dir "simulated_out" \
+   --filename_add "GSE282218_sim" \
+   --contrast_vars "RA" "Control" \
+   --control_case "d" "c"
+```
+
+This will output a `${filename_add}_contrast.txt` file.
+
+2. Run `normalize_count_xp_data.r`. This script normalizes the counts in a biological expression profile so that it is ready for input to silver.
 
 | Argument | Description | Options | Default |
 |---|---|---|---|
 | --count_file | read count profile (`read_counts.txt`) | | required |
-| --out_dir | output directory for DEG files | | "./out" |
 | --nskip | Number of commented lines to skip before getting to the column header line. (Should run on default) | | 1 |
+| --filename_add | This is the for if you want to add any text to the filename (like GEO accession)| | "" |
+| --contrast_map_file | contrast.txt file created in step 1 | | required |
+| --out_dir | output directory | | "./" |
+
+**Example**
+```bash
+./create_contrast_file.r \
+   --count_file "../biological_data/GSE282218/counts/read_counts.txt" \
+   --contrast_map_file "simulated_out/GSE282218_sim_contrast.txt" \
+   --out_dir "simulated_out" \
+   --filename_add "GSE282218_sim" \
+```
+Output file is `${filename_add}_profile.txt`
+
+3. Run`create_de_fold_change_for_silver_v2.py`. This will create the file with differentially expressed genes from the specified gene sets required for input to silver.
+
+```bash
+conda deactivate
+conda activate environment_python
+```
+
+| Argument | Description | Options | Default |
+|---|---|---|---|
+| --gene_set_file | tab separated file with gene sets wanting to be differentially enriched, manually created by you. Must follow format of `mixedsize_mixedoverlap_halfup_1_3.txt` | | required |
+| --gmt_file | GMT file | | required |
+| --profile_file | Normalized expression profile matrix file created in step 2. | | required |
+| --out_dir | output directory | | "./" |
+
+**Example**
+```bash
+./create_de_fold_change_for_silver_v2.py \
+   --gene_set_file "mixedsize_mixedoverlap_halfup_1_3.txt" \
+   --profile_file "GSE282218_sim_profile.txt" \
+   --gmt_file "../ref/gmt/c5.go.v2026.1.Hs.symbols.gmt" \
+   --out_dir "simulated_out" 
+```
+The output file will be `DE_gene_fold_change.txt`
+
+4. You need to install silver from the Github repo: [silver](https://github.com/FarhadMaleki/silver).
+Follow all the instructions for installation and environment creation. 
+```bash
+conda deactivate
+conda activate silver
+```
+
+6. Run `generate_xp_dataset.py`.
+
+| Argument | Description | Options | Default |
+|---|---|---|---|
+| --profile | The normalized gene expression profile `profile.txt` created in step 2 | | required |
+| --contrast | The contrast file `contrast.txt` created in step 1  | | required |
+| --gene_fc | The `DE_gene_fold_change.txt` file | | required |
+| --lower_bound_col_name | Lower bound column name in `DE_gene_fold_change.txt` | | 'FCLower' |
+| --upper_bound_col_name | Upper bound column name in `DE_gene_fold_change.txt` | | 'FCUpper' |
+| --fc_id_col_name | Column name of gene ID in `DE_gene_fold_change.txt` | | 'ID' |
+| --profile_id_col_name | Column name of genes in `profile.txt` | | 'ID' |
+| --n_simulated_ctrls | Number of desired simulated control samples | Int > 0 | 20 |
+| --n_simulated_cases | Number of desired simulated case samples | Int > 0 | 20 |
+| --out_dir | output directory | | "./" |
+| --replacement | Whether or not you want to sample with replacement | 'True' or 'False' | 'False' |
+
+ 
+**Example**
+```bash
+./generate_xp_dataset.py \
+   --profile "simulated_out/GSE282218_sim_profile.txt" \
+   --contrast "simulated_out/GSE282218_sim_contrast.txt" \
+   --gene_fc "simulated_out/DE_gene_fold_change.txt" \
+   --n_simulated_ctrls 25 \
+   --n_simulated_cases 25 \
+   --out_dir "simulated_out" 
+```
+This will output two files. `simulated.profile.txt` and `simulated.contrast.txt`
+
+7. Run `differential_expression_silver.r` This script will identify the genes that are differentially expressed in from the simulated silver expression profile.
+
+```bash
+conda deactivate
+conda activate environment_r
+```
+
+| Argument | Description | Options | Default |
+|---|---|---|---|
+| --count_file | read simulated count profile (`simulated.profile.txt`) | | required |
+| --contrast_file | The simulated contrast file `simulated.contrast.txt` | | required |
+| --out_dir | output directory for DEG files | | "./de_out" |
+| --nskip | Number of commented lines to skip before getting to the column header line. (Should run on default) | | 0 |
 | --alpha | Significance cutoff for DEGs. P-values and False Discovery Rate | | 0.05 |
-| --contrast_file | File containing meta data about column headers + samples | | required |
+
+```bash
+./differential_expression_silver.r \
+   --count_file "simulated_out/simulated_profile.txt" \
+   --contrast_file "simulated_out/simulated_contrast.txt" \
+   --out_dir "simulated_out/de_out"
+```
+The output will be 3 main results files: `GSEA_genes_of_interest.rnk`, `ORA_genes_of_interest.txt`, and `ORA_reference_genes.txt`. As well as an `extra_data/full_results.txt` file.
+
+
 
 
 ### GeneSICA Method
@@ -274,3 +395,5 @@ Johanna Enright, Katie Ovens, Farhad Maleki.
 
 ## Citations
 1. Signal, B., & Kahlke, T. (2022). how_are_we_stranded_here: quick determination of RNA-Seq strandedness. BMC bioinformatics, 23(1), 49. https://doi.org/10.1186/s12859-022-04572-7
+
+2. Maleki, F., Ovens, K., McQuillan, I., & Kusalik, A. J. (2021). Silver: Forging almost Gold Standard Datasets. Genes, 12(10), 1523. https://doi.org/10.3390/genes12101523
