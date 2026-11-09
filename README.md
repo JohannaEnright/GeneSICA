@@ -242,14 +242,15 @@ conda activate environment_r
 | --goi_file | Text file containing genes of interest that are differentially expressed | | required |
 | --goi_type | The ID format that the proteins in the goi_file are in | | ensembl_gene_id |
 | --db_file | A gmt file containing gene set database info |  | required |
-| --enrich_db_type | Number of bootstrap iterations | Integer > 0 | 1000 |
-| --reference_file | Maximum size of gene set to be considered | An integer | 500 |
-| --reference_type | Minimum size of gene set to be considered | An integer | 5 |
-| --out_dir | File containing meta data about column headers + samples |  | "out/pvalues" |
-| --project_name | Number of permutated SIC values to start GPD goodness of fit test | An Integer | 500 |
-| --maxNum| Exponent used to transform the GPD. To get a heavier tailed GPD and more reliable results, ideally you want a shape parameter < 0.  | Int > 0 | 1 |
-| --minNum | Exponent used to transform the GPD. To get a heavier tailed GPD and more reliable results, ideally you want a shape parameter < 0.  | Int > 0 | 1 |
-| --perNum | Exponent used to transform the GPD. To get a heavier tailed GPD and more reliable results, ideally you want a shape parameter < 0.  | Int > 0 | 1 |
+| --enrich_db_type | The ID format that the proteins in the db_file are in  | | ensembl_gene_id |
+| --reference_file | A text file containing the reference set of genes. Only required for ORA | | |
+| --reference_type | The ID format that the proteins in the reference_file are in | | ensembl_gene_id |
+| --out_dir | Output directory for the results |  | "webgestalt_out" |
+| --project_name | Project name used in directory and file naming |  | "" |
+| --minNum | Minimum size of gene set to be considered  | Int > 0 | 5 |
+| --maxNum| Maximum size of gene set to be considered  | Int > 0 | 500 |
+| --perNum | Number of permutations for null distribution. GSEA only  | Int > 0 | 1000 |
+| --threads | Number of threads to run script on  | Int > 0 | 1 |
 
 
 
