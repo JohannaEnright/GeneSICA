@@ -160,6 +160,21 @@ Output files will include: \
 - An extra data folder containing the full results (including insignificant) and meta data about parameters used. -->  `extra_data/full_results_coef1_vs_Control.txt` and `extra_data/result_params_coef1_vs_Control.txt` 
 
 ### Silver Simulated Dataset Setup
+This section describes how to create simulated gene expression profiles from Silver.
+First you need a txt file of the gene sets you want to be differentially expressed, formatted like `mixedsize_mixedoverlap_halfup_1_3.txt`.
+
+1. Run `create_contrast_file.r`
+------------
+
+3. Run`create_de_fold_change_for_silver_v2.py`. This will create the file with differentially expressed genes from the specified gene sets required for input to silver.
+
+| Argument | Description | Options | Default |
+|---|---|---|---|
+| --count_file | read count profile (`read_counts.txt`) | | required |
+| --out_dir | output directory for DEG files | | "./out" |
+| --nskip | Number of commented lines to skip before getting to the column header line. (Should run on default) | | 1 |
+| --alpha | Significance cutoff for DEGs. P-values and False Discovery Rate | | 0.05 |
+| --contrast_file | File containing meta data about column headers + samples | | required |
 
 
 ### GeneSICA Method
