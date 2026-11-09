@@ -161,7 +161,8 @@ Output files will include:
 
 ### Silver Simulated Dataset Setup
 This section describes how to create simulated gene expression profiles from Silver.
-First you need a txt file of the gene sets you want to be differentially expressed, formatted like `mixedsize_mixedoverlap_halfup_1_3.txt`.
+
+1. First you need a txt file of the gene sets you want to be differentially expressed, formatted like `mixedsize_mixedoverlap_halfup_1_3.txt`. This can be manually created, using `select_gene_sets_by_size.py` as guidance for gene sets to include based on gene set size and overlap score.
 
 *Optional:* \
 *To determine the sizes and overlap scores of the gene sets you wish to be differentially expressed in silver, run the script `select_gene_sets_by_size.py`.*
@@ -190,7 +191,7 @@ conda activate environment_python
 This will output a `filtered_${gmt}_${size_range}size_${overlap_range}overlap.tsv` file and a pre-calculated overlap score file to be used for faster analysis next time called `overlap_scores_${gmt}.json`. Use the tsv file to determine which gene sets of specific sizes and overlaps you want to include in your gene_set_file.txt file.
 
 
-1. Run `create_contrast_file.r`
+2. Run `create_contrast_file.r`
 
 ```bash
 conda deactivate
@@ -221,7 +222,7 @@ conda activate environment_r
 
 This will output a `${filename_add}_contrast.txt` file.
 
-2. Run `normalize_count_xp_data.r`. This script normalizes the counts in a biological expression profile so that it is ready for input to silver.
+3. Run `normalize_count_xp_data.r`. This script normalizes the counts in a biological expression profile so that it is ready for input to silver.
 
 | Argument | Description | Options | Default |
 |---|---|---|---|
@@ -241,7 +242,7 @@ This will output a `${filename_add}_contrast.txt` file.
 ```
 Output file is `${filename_add}_profile.txt`
 
-3. Run`create_de_fold_change_for_silver_v2.py`. This will create the file with differentially expressed genes from the specified gene sets required for input to silver.
+4. Run`create_de_fold_change_for_silver_v2.py`. This will create the file with differentially expressed genes from the specified gene sets required for input to silver.
 
 ```bash
 conda deactivate
@@ -265,7 +266,7 @@ conda activate environment_python
 ```
 The output file will be `DE_gene_fold_change.txt`
 
-4. You need to install silver from the Github repo: [silver](https://github.com/FarhadMaleki/silver).
+5. You need to install silver from the Github repo: [silver](https://github.com/FarhadMaleki/silver).
 Follow all the instructions for installation and environment creation. 
 ```bash
 conda deactivate
