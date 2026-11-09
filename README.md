@@ -5,6 +5,8 @@ Scripts used to run the GeneSICA algorithm as well as data processing scripts, a
 GeneSICA aims to identify biologically relevant enrichment in smaller gene sets with less genes overlap. The method combines an information-theoretic score with weighted bootstrapping to assess statistical significance.
 This is because large gene sets containing genes shared across many biological processes may provide limited insight into the specific processes underlying phenotypic differences in case-control studies. Other methods such as Over-representation analysis make simplifying assumptions, including that all genes are equally important when performing gene set analysis, which we hope to address with this method.
 
+---
+
 ## Installation
 There are three different conda environments used in the various processing stages of this project.
 1. `environment_bio_processing.yml` is used when downloading RNA-seq data, cleaning fasta files, running genome alignments, and performing read counts.
@@ -19,6 +21,8 @@ conda env create -f environment_bio_processing.yml
 conda env create -f environment_r.yml
 conda env create -f environment_python.yml
 ```
+
+---
 
 ## Usage
 
@@ -424,6 +428,16 @@ Johanna Enright, Katie Ovens, Farhad Maleki.
 ## Citations
 1. Signal, B., & Kahlke, T. (2022). how_are_we_stranded_here: quick determination of RNA-Seq strandedness. BMC bioinformatics, 23(1), 49. https://doi.org/10.1186/s12859-022-04572-7
 
-2. Maleki, F., Ovens, K., McQuillan, I., & Kusalik, A. J. (2021). Silver: Forging almost Gold Standard Datasets. Genes, 12(10), 1523. https://doi.org/10.3390/genes12101523
+2. Chen, S., Zhou, Y., Chen, Y., & Gu, J. (2018). fastp: an ultra-fast all-in-one FASTQ preprocessor. Bioinformatics (Oxford, England), 34(17), i884–i890. https://doi.org/10.1093/bioinformatics/bty560
 
-3. Subramanian, A., Tamayo, P., Mootha, V. K., Mukherjee, S., Ebert, B. L., Gillette, M. A., Paulovich, A., Pomeroy, S. L., Golub, T. R., Lander, E. S., & Mesirov, J. P. (2005). Gene set enrichment analysis: a knowledge-based approach for interpreting genome-wide expression profiles. Proceedings of the National Academy of Sciences of the United States of America, 102(43), 15545–15550. https://doi.org/10.1073/pnas.0506580102
+3. Liao, Y., Smyth, G. K., & Shi, W. (2014). featureCounts: an efficient general purpose program for assigning sequence reads to genomic features. Bioinformatics (Oxford, England), 30(7), 923–930. https://doi.org/10.1093/bioinformatics/btt656
+
+4. Dobin, A., Davis, C. A., Schlesinger, F., Drenkow, J., Zaleski, C., Jha, S., Batut, P., Chaisson, M., & Gingeras, T. R. (2013). STAR: ultrafast universal RNA-seq aligner. Bioinformatics (Oxford, England), 29(1), 15–21. https://doi.org/10.1093/bioinformatics/bts635
+
+5. Love, M. I., Huber, W., & Anders, S. (2014). Moderated estimation of fold change and dispersion for RNA-seq data with DESeq2. Genome biology, 15(12), 550. https://doi.org/10.1186/s13059-014-0550-8
+
+6. Maleki, F., Ovens, K., McQuillan, I., & Kusalik, A. J. (2021). Silver: Forging almost Gold Standard Datasets. Genes, 12(10), 1523. https://doi.org/10.3390/genes12101523
+
+7. Subramanian, A., Tamayo, P., Mootha, V. K., Mukherjee, S., Ebert, B. L., Gillette, M. A., Paulovich, A., Pomeroy, S. L., Golub, T. R., Lander, E. S., & Mesirov, J. P. (2005). Gene set enrichment analysis: a knowledge-based approach for interpreting genome-wide expression profiles. Proceedings of the National Academy of Sciences of the United States of America, 102(43), 15545–15550. https://doi.org/10.1073/pnas.0506580102
+
+8. Elizarraras, J. M., Liao, Y., Shi, Z., Zhu, Q., Pico, A. R., & Zhang, B. (2024). WebGestalt 2024: faster gene set analysis and new support for metabolomics and multi-omics. Nucleic acids research, 52(W1), W415–W421. https://doi.org/10.1093/nar/gkae456
