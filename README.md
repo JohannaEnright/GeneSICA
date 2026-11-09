@@ -163,11 +163,40 @@ Output files will include: \
 This section describes how to create simulated gene expression profiles from Silver.
 First you need a txt file of the gene sets you want to be differentially expressed, formatted like `mixedsize_mixedoverlap_halfup_1_3.txt`.
 
+*Optional:* 
+To determine the sizes and overlap scores of the gene sets you wish to be differentially expressed in silver, run the script `select_gene_sets_by_size.py`.
+
 ```bash
-cd ../silver
+conda deactivate
+conda activate environment_python
 ```
 
+| Argument | Description | Options | Default |
+|---|---|---|---|
+| --gmt | "../ref/gmt/c5.go.v2026.1.Hs.symbols.gmt" |  | required |
+| --size_range | The size range of the gene sets you are interested in. 2 integers separated by whitespace | Int Int | required |
+| --overlap_range | The overlap range of the gene sets you are interested in. 2 floats separated by whitespace | Float Float | required |
+| --overlap_score_file | Pre-calculated overlap score txt file. If not provided, scores will be automatically computed from scratch | | "" |
+| --out_dir | output directory for DEG files | | "./" |
+
+**Example**
+```bash
+./select_gene_sets_by_size.py \
+   --gmt "../ref/gmt/c5.go.v2026.1.Hs.symbols.gmt" \
+   --size_range 5 20  \
+   --overlap_range 0 11  \
+   --out_dir "../ref/size_overlap_filtering" \
+```
+This will output a `filtered_${gmt}_${size_range}size_${overlap_range}overlap.tsv` file and a pre-calculated overlap score file to be used for faster analysis next time called `overlap_scores_${gmt}.json`. Use the tsv file to determine which gene sets of specific sizes and overlaps you want to include in your gene_set_file.txt file.
+
+
 1. Run `create_contrast_file.r`
+
+```bash
+conda deactivate
+conda activate environment_r
+```
+
 | Argument | Description | Options | Default |
 |---|---|---|---|
 | --count_file | read count profile (`read_counts.txt`) | | required |
@@ -294,9 +323,7 @@ conda activate environment_r
    --out_dir "simulated_out/de_out"
 ```
 The output will be 3 main results files: `GSEA_genes_of_interest.rnk`, `ORA_genes_of_interest.txt`, and `ORA_reference_genes.txt`. As well as an `extra_data/full_results.txt` file.
-
-
-
+From here, GeneSICA or ORA or GSEA can be run on the simulated data files.
 
 ### GeneSICA Method
 This section will describe how to run the GeneSICA method on the prepared biological and Silver datasets.
