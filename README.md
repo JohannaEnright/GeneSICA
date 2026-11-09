@@ -152,7 +152,7 @@ This script uses DeSEQ2 to run the differential expression analysis of the read 
 ```bash
 ./differential_expression_analysis.R --count_file "GSE282218/counts/read_counts.txt" --out_dir "GSE282218/counts/de_out" --col_map "GSE282218/meta/colData.tsv"
 ```
-Output files will include: \
+Output files will include: 
 - A gene of interest file (used for ORA and GeneSICA) --> `ORA_coef1_vs_control_genes_of_interest.txt`
 - An ORA gene reference set (used for ORA) --> `ORA_reference_genes.txt`
 - A GSEA rank file --> `GSEA_coef1_vs_Control_genes_of_interest.rnk`
