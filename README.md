@@ -400,6 +400,7 @@ conda activate environment_r
 ```
 
 1. Run `webgestalt.R`
+
 | Argument | Description | Options | Default |
 |---|---|---|---|
 | --method | The gene set enrichment method |'ORA' or 'GSEA' | 'ORA' |
