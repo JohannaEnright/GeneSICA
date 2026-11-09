@@ -402,7 +402,7 @@ conda activate environment_r
 1. Run `webgestalt.R`
 | Argument | Description | Options | Default |
 |---|---|---|---|
-| --method | The gene set enrichment method |'ORA' or 'GSEA'| 'ORA' |
+| --method | The gene set enrichment method |'ORA' or 'GSEA' | 'ORA' |
 | --goi_file | Text file containing genes of interest that are differentially expressed | | required |
 | --goi_type | The ID format that the proteins in the goi_file are in | | ensembl_gene_id |
 | --db_file | A gmt file containing gene set database info |  | required |
@@ -412,10 +412,9 @@ conda activate environment_r
 | --out_dir | Output directory for the results |  | "webgestalt_out" |
 | --project_name | Project name used in directory and file naming |  | "" |
 | --minNum | Minimum size of gene set to be considered  | Int > 0 | 5 |
-| --maxNum| Maximum size of gene set to be considered  | Int > 0 | 500 |
+| --maxNum | Maximum size of gene set to be considered  | Int > 0 | 500 |
 | --perNum | Number of permutations for null distribution. GSEA only  | Int > 0 | 1000 |
 | --threads | Number of threads to run script on  | Int > 0 | 1 |
-
 
 
 ## Authors
@@ -425,3 +424,5 @@ Johanna Enright, Katie Ovens, Farhad Maleki.
 1. Signal, B., & Kahlke, T. (2022). how_are_we_stranded_here: quick determination of RNA-Seq strandedness. BMC bioinformatics, 23(1), 49. https://doi.org/10.1186/s12859-022-04572-7
 
 2. Maleki, F., Ovens, K., McQuillan, I., & Kusalik, A. J. (2021). Silver: Forging almost Gold Standard Datasets. Genes, 12(10), 1523. https://doi.org/10.3390/genes12101523
+
+3. Subramanian, A., Tamayo, P., Mootha, V. K., Mukherjee, S., Ebert, B. L., Gillette, M. A., Paulovich, A., Pomeroy, S. L., Golub, T. R., Lander, E. S., & Mesirov, J. P. (2005). Gene set enrichment analysis: a knowledge-based approach for interpreting genome-wide expression profiles. Proceedings of the National Academy of Sciences of the United States of America, 102(43), 15545–15550. https://doi.org/10.1073/pnas.0506580102
