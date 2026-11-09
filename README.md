@@ -163,8 +163,8 @@ Output files will include: \
 This section describes how to create simulated gene expression profiles from Silver.
 First you need a txt file of the gene sets you want to be differentially expressed, formatted like `mixedsize_mixedoverlap_halfup_1_3.txt`.
 
-*Optional:* 
-To determine the sizes and overlap scores of the gene sets you wish to be differentially expressed in silver, run the script `select_gene_sets_by_size.py`.
+*Optional:* \
+*To determine the sizes and overlap scores of the gene sets you wish to be differentially expressed in silver, run the script `select_gene_sets_by_size.py`.*
 
 ```bash
 conda deactivate
