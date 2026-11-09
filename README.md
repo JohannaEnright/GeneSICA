@@ -5,7 +5,6 @@ Scripts used to run the GeneSICA algorithm as well as data processing scripts, a
 GeneSICA aims to identify biologically relevant enrichment in smaller gene sets with less genes overlap. The method combines an information-theoretic score with weighted bootstrapping to assess statistical significance.
 This is because large gene sets containing genes shared across many biological processes may provide limited insight into the specific processes underlying phenotypic differences in case-control studies. Other methods such as Over-representation analysis make simplifying assumptions, including that all genes are equally important when performing gene set analysis, which we hope to address with this method.
 
----
 
 ## Installation
 There are three different conda environments used in the various processing stages of this project.
@@ -22,7 +21,6 @@ conda env create -f environment_r.yml
 conda env create -f environment_python.yml
 ```
 
----
 
 ## Usage
 
@@ -162,6 +160,8 @@ Output files will include:
 - A GSEA rank file --> `GSEA_coef1_vs_Control_genes_of_interest.rnk`
 - A text file containing extra haplotypes which were removed --> `removed_alt_haps_assmbl.txt`
 - An extra data folder containing the full results (including insignificant) and meta data about parameters used. -->  `extra_data/full_results_coef1_vs_Control.txt` and `extra_data/result_params_coef1_vs_Control.txt` 
+
+---
 
 ### Silver Simulated Dataset Setup
 This section describes how to create simulated gene expression profiles from Silver.
@@ -330,6 +330,8 @@ conda activate environment_r
 The output will be 3 main results files: `GSEA_genes_of_interest.rnk`, `ORA_genes_of_interest.txt`, and `ORA_reference_genes.txt`. As well as an `extra_data/full_results.txt` file.
 From here, GeneSICA or ORA or GSEA can be run on the simulated data files.
 
+---
+
 ### GeneSICA Method
 This section will describe how to run the GeneSICA method on the prepared biological and Silver datasets.
 
@@ -394,6 +396,8 @@ cd genesica
    --transformation_exp 1
 ```
 
+---
+
 ### Alternative Gene Set Analysis Methods
 This section explains how to run alternative gene set enrichment methods: ORA and GSEA.
 
@@ -421,6 +425,7 @@ conda activate environment_r
 | --perNum | Number of permutations for null distribution. GSEA only  | Int > 0 | 1000 |
 | --threads | Number of threads to run script on  | Int > 0 | 1 |
 
+---
 
 ## Authors
 Johanna Enright, Katie Ovens, Farhad Maleki.
